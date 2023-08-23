@@ -1,5 +1,6 @@
 import React from "react";
 import CodeHighlight from "./CodeHighlight";
+import TypewriterText from './TypewriterText';
 
 import { useState } from 'react'
 import fathymLogo from '/thinky.svg'
@@ -44,7 +45,7 @@ function App() {
             </a>
           </div>
         </div>
-        <h2>Fathym + Tailwind + Vite + React</h2>
+        <h2>Fathym + Tailwind + Vite + <TypewriterText text="React" speed={0.1} startDelay={1} /></h2>
       </div>
     </>
   )
