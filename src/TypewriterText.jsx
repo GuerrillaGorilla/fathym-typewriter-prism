@@ -1,40 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import * as React from 'react';
+import { motion } from "framer-motion";
 
-const TypewriterText = ({ text, speed, startDelay }) => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+interface message {
+  line: string;
+  startDelay: number;
+  letterSpeed: number;
+  letterFade: number;
+}
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }, speed);
+const Sentence = (startDelay: number, letterSpeed: number) => {
+  const intDelay = startDelay;
+  const letterDelay = letterSpeed;
 
-    return () => clearInterval(intervalId);
-  }, [speed]);
+  return ({
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 0.1,
+        delayChildren: intDelay ? intDelay : 0,
+        staggerChildren: letterDelay ? letterDelay : 0.08,
+      },
+    },
+  });
+}
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setDisplayedText(text.slice(0, currentIndex));
-    }, startDelay + currentIndex * speed);
+const Letter = (letterFade: number) => {
+  const fadeDelay = letterFade;
 
-    return () => clearTimeout(timeoutId);
-  }, [text, currentIndex, startDelay, speed]);
+  return ({
+    hidden: { opacity: 0, y: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        opacity: {duration: fadeDelay ? fadeDelay : 0.08}
+      },
+    },
+  });
+}
 
+export default function Typewriter({ line, startDelay, letterSpeed, letterFade }: message) {
   return (
-    <span>
-      {displayedText.split('').map((letter, index) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: speed / 2, delay: index * speed }}
-        >
-          {letter}
-        </motion.span>
-      ))}
-    </span>
-  );
-};
-
-export default TypewriterText;
+    <motion.span
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="load-screen--message"
+      variants={Sentence(startDelay, letterSpeed)}
+      initial="hidden"
+    >
+      {line.split("").map((char, index) => {
+        return (
+          <motion.span style={{ whiteSpace: 'pre-wrap' }} key={char + "-" + index} variants={Letter(letterFade)} >
+            {char}
+          </motion.span>
+        )
+      })}
+    </motion.span>
+  )
+}
