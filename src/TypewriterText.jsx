@@ -16,10 +16,10 @@ const TypewriterText = ({ text, speed, startDelay }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDisplayedText(text.slice(0, currentIndex));
-    }, startDelay);
+    }, startDelay + currentIndex * speed);
 
     return () => clearTimeout(timeoutId);
-  }, [text, currentIndex, startDelay]);
+  }, [text, currentIndex, startDelay, speed]);
 
   return (
     <span>
@@ -28,7 +28,7 @@ const TypewriterText = ({ text, speed, startDelay }) => {
           key={index}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: speed / 2 }}
+          transition={{ duration: speed / 2, delay: index * speed }}
         >
           {letter}
         </motion.span>
