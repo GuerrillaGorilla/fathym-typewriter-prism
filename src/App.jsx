@@ -46,7 +46,7 @@ function App() {
           </div>
         </div>
         <h2>
-          <Typewriter line={"Fathym + Tailwind + Vite + React"} startDelay={2.5} letterSpeed={0.07} letterFade={0.07} />
+          <TypewriterText line={"Fathym + Tailwind + Vite + React"} startDelay={0} letterSpeed={0.07} letterFade={0.07} />
         </h2>
       </div>
     </>
