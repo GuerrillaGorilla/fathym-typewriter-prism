@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const TypewriterText = ({ text, speed, startDelay }) => {
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const transition = {
-    duration: speed,
-    delay: startDelay,
-  };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }, speed);
+
+    return () => clearInterval(intervalId);
+  }, [speed]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDisplayedText(text.slice(0, currentIndex));
+    }, startDelay);
+
+    return () => clearTimeout(timeoutId);
+  }, [text, currentIndex, startDelay]);
 
   return (
-    <motion.span
-      initial="hidden"
-      animate="visible"
-      variants={variants}
-      transition={transition}
-    >
-      {text}
-    </motion.span>
+    <span>
+      {displayedText.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: speed / 2 }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </span>
   );
 };
 
