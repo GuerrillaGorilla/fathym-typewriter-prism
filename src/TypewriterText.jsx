@@ -1,14 +1,7 @@
 import * as React from 'react';
 import { motion } from "framer-motion";
 
-interface message {
-  line: string;
-  startDelay: number;
-  letterSpeed: number;
-  letterFade: number;
-}
-
-const Sentence = (startDelay: number, letterSpeed: number) => {
+const Sentence = (startDelay, letterSpeed) => {
   const intDelay = startDelay;
   const letterDelay = letterSpeed;
 
@@ -25,7 +18,7 @@ const Sentence = (startDelay: number, letterSpeed: number) => {
   });
 }
 
-const Letter = (letterFade: number) => {
+const Letter = (letterFade) => {
   const fadeDelay = letterFade;
 
   return ({
@@ -40,7 +33,7 @@ const Letter = (letterFade: number) => {
   });
 }
 
-export default function Typewriter({ line, startDelay, letterSpeed, letterFade }: message) {
+export default function Typewriter({ line, startDelay, letterSpeed, letterFade }) {
   return (
     <motion.span
       whileInView="visible"
