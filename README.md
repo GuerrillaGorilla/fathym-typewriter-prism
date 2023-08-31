@@ -1,7 +1,7 @@
-# fathym-forecast-maptiles
-A Generic Forecast Maptiles Display for Fathym
+# fathym-typewrite-prism
+A Generic Fathym Typewrite Prism starting point for displaying color highlighted code with a typewriter effect.
 
-Built with Fathym, Vite, Tailwind, React
+Built with ViteJS, React, and Tailwind
 
 Fathym Forecast available tile types:
 
@@ -75,4 +75,5 @@ The component makes two calls:
 It then arranges them in a grid over a svg of either the CONUS or the whole world depending on the prefs set.
 
 Fathym Forecast Docs: https://www.fathym.com/forecast/docs/
-    
+
+To run the project locally, navigate to [http://localhost:5173/](http://localhost:5173/).

@@ -2,17 +2,17 @@ name: GuerrillaGorilla/fathym-typewriter-prism
 
 on:
   push:
-    branches: [main]
+    branches: [integration]
   pull_request:
-    branches: [main]
+    branches: [integration]
   workflow_dispatch:
 
 permissions: write-all
 
 env:
   CI: false
-  Branches: main
-  MainBranch: main
+  Branches: integration
+  MainBranch: integration
   NPMRegistry: https://registry.npmjs.org/
   InstallCommand: npm i
   BuildCommand: npm run build
